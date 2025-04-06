@@ -24,15 +24,15 @@ do
     Fluent:Notify({
         Title = "Paid Script",
         Content = "Loading...",
-        SubContent = "SubContent", -- Optional
+        SubContent = "", -- Optional
         Duration = 5 -- Set to nil to make the notification not disappear
     })
 
 
 
     Tabs.Main:AddParagraph({
-        Title = "Paragraph",
-        Content = "This is a paragraph.\nSecond line!"
+        Title = "Supported Script:",
+        Content = "Maru,Banana,W-azure"
     })
 
 
@@ -41,108 +41,100 @@ do
         Title = "W-azure True V2(Free)",
         Description = "",
         Callback = function()
-          
+          getgenv().Team = "Marines"
+getgenv().FixCrash = false -- Turn it On For Hopping Server, Improve Performance But Silent Aim On Mob And Player
+getgenv().FixCrash2 = false -- Turn it On For Hopping Server, Improve Performance But Will Remove Speed Changer
+loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/3b2169cf53bc6104dabe8e19562e5cc2.lua"))()
         end
     })
 
-
-
-    local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "Toggle", Default = false })
-
-    Toggle:OnChanged(function()
-        print("Toggle changed:", Options.MyToggle.Value)
-    end)
-
-    Options.MyToggle:SetValue(false)
-
-
-    
-    local Slider = Tabs.Main:AddSlider("Slider", {
-        Title = "Slider",
-        Description = "This is a slider",
-        Default = 2,
-        Min = 0,
-        Max = 5,
-        Rounding = 1,
-        Callback = function(Value)
-            print("Slider was changed:", Value)
+    Tabs.Main:AddButton({
+        Title = "Banana Cat-Hub",
+        Description = "",
+        Callback = function()
+         repeat wait() until game:IsLoaded() and game.Players.LocalPlayer
+getgenv().Key = "10d136f561ea7b6dd6ec7831"
+loadstring(game:HttpGet("https://raw.githubusercontent.com/obiiyeuem/vthangsitink/main/BananaHub.lua"))()
         end
     })
 
-    Slider:OnChanged(function(Value)
-        print("Slider changed:", Value)
-    end)
+    Tabs.Main:AddButton({
+        Title = "Join Script",
+        Description = "",
+        Callback = function()
+          --[[
+	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+]]
+-- Create the GUI
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
-    Slider:SetValue(3)
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 300, 0, 150)
+frame.Position = UDim2.new(0.5, -150, 0.5, -75)
+frame.BackgroundColor3 = Color3.fromRGB(50, 50, 50) -- Grey background
+frame.Active = true
+frame.Draggable = true
+frame.Parent = screenGui
 
+-- Add rounded corners to the frame
+local uiCorner = Instance.new("UICorner")
+uiCorner.CornerRadius = UDim.new(0, 8) -- Adjust corner radius as needed
+uiCorner.Parent = frame
 
+local title = Instance.new("TextLabel")
+title.Text = "Join Server by Job ID"
+title.Size = UDim2.new(1, 0, 0, 30)
+title.Position = UDim2.new(0, 0, 0, 0)
+title.BackgroundColor3 = Color3.fromRGB(40, 40, 40) -- Darker grey
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.Font = Enum.Font.FredokaOne -- Set font to Fredoka One
+title.Parent = frame
 
-    local Dropdown = Tabs.Main:AddDropdown("Dropdown", {
-        Title = "Dropdown",
-        Values = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen"},
-        Multi = false,
-        Default = 1,
-    })
+-- Add rounded corners to the title
+local titleCorner = Instance.new("UICorner")
+titleCorner.CornerRadius = UDim.new(0, 8)
+titleCorner.Parent = title
 
-    Dropdown:SetValue("four")
+local textBox = Instance.new("TextBox")
+textBox.PlaceholderText = "Enter Job ID"
+textBox.Size = UDim2.new(0.8, 0, 0, 30)
+textBox.Position = UDim2.new(0.1, 0, 0.4, 0)
+textBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+textBox.TextColor3 = Color3.fromRGB(0, 0, 0)
+textBox.Font = Enum.Font.FredokaOne -- Set font to Fredoka One
+textBox.Parent = frame
 
-    Dropdown:OnChanged(function(Value)
-        print("Dropdown changed:", Value)
-    end)
+-- Add rounded corners to the text box
+local textBoxCorner = Instance.new("UICorner")
+textBoxCorner.CornerRadius = UDim.new(0, 8)
+textBoxCorner.Parent = textBox
 
+local joinButton = Instance.new("TextButton")
+joinButton.Text = "Join Server"
+joinButton.Size = UDim2.new(0.8, 0, 0, 30)
+joinButton.Position = UDim2.new(0.1, 0, 0.7, 0)
+joinButton.BackgroundColor3 = Color3.fromRGB(0, 120, 255)
+joinButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+joinButton.Font = Enum.Font.FredokaOne -- Set font to Fredoka One
+joinButton.Parent = frame
 
-    
-    local MultiDropdown = Tabs.Main:AddDropdown("MultiDropdown", {
-        Title = "Dropdown",
-        Description = "You can select multiple values.",
-        Values = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen"},
-        Multi = true,
-        Default = {"seven", "twelve"},
-    })
+-- Add rounded corners to the button
+local buttonCorner = Instance.new("UICorner")
+buttonCorner.CornerRadius = UDim.new(0, 8)
+buttonCorner.Parent = joinButton
 
-    MultiDropdown:SetValue({
-        three = true,
-        five = true,
-        seven = false
-    })
-
-    MultiDropdown:OnChanged(function(Value)
-        local Values = {}
-        for Value, State in next, Value do
-            table.insert(Values, Value)
+-- Function to join the server by Job ID
+joinButton.MouseButton1Click:Connect(function()
+    local jobId = textBox.Text
+    if jobId and jobId ~= "" then
+        game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, jobId)
+    else
+        print("Please enter a valid Job ID.")
+    end
+end)
         end
-        print("Mutlidropdown changed:", table.concat(Values, ", "))
-    end)
-
-
-
-    local Colorpicker = Tabs.Main:AddColorpicker("Colorpicker", {
-        Title = "Colorpicker",
-        Default = Color3.fromRGB(96, 205, 255)
     })
-
-    Colorpicker:OnChanged(function()
-        print("Colorpicker changed:", Colorpicker.Value)
-    end)
-    
-    Colorpicker:SetValueRGB(Color3.fromRGB(0, 255, 140))
-
-
-
-    local TColorpicker = Tabs.Main:AddColorpicker("TransparencyColorpicker", {
-        Title = "Colorpicker",
-        Description = "but you can change the transparency.",
-        Transparency = 0,
-        Default = Color3.fromRGB(96, 205, 255)
-    })
-
-    TColorpicker:OnChanged(function()
-        print(
-            "TColorpicker changed:", TColorpicker.Value,
-            "Transparency:", TColorpicker.Transparency
-        )
-    end)
-
 
 
     local Keybind = Tabs.Main:AddKeybind("Keybind", {
@@ -187,21 +179,6 @@ do
 
     Keybind:SetValue("MB2", "Toggle") -- Sets keybind to MB2, mode to Hold
 
-
-    local Input = Tabs.Main:AddInput("Input", {
-        Title = "Input",
-        Default = "Default",
-        Placeholder = "Placeholder",
-        Numeric = false, -- Only allows numbers
-        Finished = false, -- Only calls callback when you press enter
-        Callback = function(Value)
-            print("Input changed:", Value)
-        end
-    })
-
-    Input:OnChanged(function()
-        print("Input updated:", Input.Value)
-    end)
 end
 
 
