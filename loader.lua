@@ -3,7 +3,7 @@ local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/d
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
 
 local Window = Fluent:CreateWindow({
-    Title = "Paid Script",
+    Title = "Stuff Hub [Rewrite]",
     SubTitle = "by queeni",
     TabWidth = 160,
     Size = UDim2.fromOffset(580, 460),
@@ -14,8 +14,10 @@ local Window = Fluent:CreateWindow({
 
 --Fluent provides Lucide Icons https://lucide.dev/icons/ for the tabs, icons are optional
 local Tabs = {
-    Main = Window:AddTab({ Title = "Main", Icon = "" }),
-    Settings = Window:AddTab({ Title = "Settings", Icon = "settings" })
+    Main = Window:AddTab({ Title = "Tab BF Script", Icon = "" }),
+    Tab2 = Window:AddTab({ Title = "Tab Dead Rails Script", Icon = "" }),
+    Tab3 = Window:AddTab({ Title = "Tab Universal Script", Icon = "" }),
+    Settings = Window:AddTab({ Title = "Tab Theme/Config", Icon = "" })
 }
 
 local Options = Fluent.Options
@@ -55,6 +57,16 @@ loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/3b2169cf53bc61
          repeat wait() until game:IsLoaded() and game.Players.LocalPlayer
 getgenv().Key = "10d136f561ea7b6dd6ec7831"
 loadstring(game:HttpGet("https://raw.githubusercontent.com/obiiyeuem/vthangsitink/main/BananaHub.lua"))()
+        end
+    })
+    
+    Tabs.Main:AddButton({
+        Title = "Maru Hub(PE)",
+        Description = "",
+        Callback = function()
+         getgenv().Key = "MARU-29LDH-41X5-YOK6M-EY5A-RCEG2"
+getgenv().id = "1002555069805383680"
+loadstring(game:HttpGet("https://raw.githubusercontent.com/xshiba/MaruBitkub/main/Mobile.lua"))()
         end
     })
 
@@ -180,8 +192,35 @@ end)
     Keybind:SetValue("MB2", "Toggle") -- Sets keybind to MB2, mode to Hold
 
 end
-
-
+    
+  Tabs.Tab2:AddButton({
+        Title = "Skull Hub",
+        Description = "",
+        Callback = function()
+         loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
+        end
+    })
+  Tabs.Tab3:AddButton({
+        Title = "Infinite Yield",
+        Description = "",
+        Callback = function()
+          loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/refs/heads/master/source"))()
+        end
+  })
+  Tabs.Tab3:AddButton({
+       Title = "Nameless Admin",
+       Description = "",
+       Callback = function()
+         loadstring(game:HttpGet("https://raw.githubusercontent.com/ltseverydayyou/Nameless-Admin/refs/heads/main/Source.lua"))()
+       end
+  })
+  Tabs.Tab3:AddButton({
+       Title = "Silent Aim",
+       Description = "",
+       Callback = function()
+         loadstring(game:HttpGet("https://raw.githubusercontent.com/bomalalarblx/blox/refs/heads/main/silentaimuniversal"))()
+       end
+  })
 -- Addons:
 -- SaveManager (Allows you to have a configuration system)
 -- InterfaceManager (Allows you to have a interface managment system)
@@ -209,11 +248,7 @@ SaveManager:BuildConfigSection(Tabs.Settings)
 
 Window:SelectTab(1)
 
-Fluent:Notify({
-    Title = "Fluent",
-    Content = "The script has been loaded.",
-    Duration = 8
-})
+
 
 -- You can use the SaveManager:LoadAutoloadConfig() to load a config
 -- which has been marked to be one that auto loads!
