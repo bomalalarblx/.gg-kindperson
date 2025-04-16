@@ -18,6 +18,7 @@ local Tabs = {
     Tab2 = Window:AddTab({ Title = "Tab Dead Rails Script", Icon = "" }),
     Tab3 = Window:AddTab({ Title = "Tab Universal Script", Icon = "" }),
     Tab4 = Window:AddTab({ Title = "Tab Local Player", Icon = "" }),
+    Tab5 = Window:AddTab({ Title = "Tab Kaitun BF", Icon = "" }),
     Settings = Window:AddTab({ Title = "Tab Theme/Config", Icon = "" })
 }
 
@@ -193,7 +194,7 @@ end)
     Keybind:SetValue("MB2", "Toggle") -- Sets keybind to MB2, mode to Hold
 
 end
-    
+   
   Tabs.Tab2:AddButton({
         Title = "Skull Hub",
         Description = "",
@@ -253,7 +254,22 @@ end
         end
     })
     
-
+    Tabs.Tab5:AddButton({
+        Title = "Banana-Cat Hub",
+        Description = "",
+        Callback = function()
+          loadstring(game:HttpGet("https://raw.githubusercontent.com/bomalalarblx/blox/refs/heads/main/kaitunbanananocap"))()
+        end
+    })
+    Tabs.Tab5:AddButton({
+        Title = "Kaitun-Leviathan",
+        Description = "",
+        Callback = function()
+          repeat wait() until game:IsLoaded() and game.Players.LocalPlayer
+getgenv().Key = "10d136f561ea7b6dd6ec7831"
+loadstring(game:HttpGet("https://raw.githubusercontent.com/obiiyeuem/vthangsitink/refs/heads/main/BananaCat-KaitunLevi.lua"))()
+        end
+    })
 -- Addons:
 -- SaveManager (Allows you to have a configuration system)
 -- InterfaceManager (Allows you to have a interface managment system)
