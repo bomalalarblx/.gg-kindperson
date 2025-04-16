@@ -17,6 +17,7 @@ local Tabs = {
     Main = Window:AddTab({ Title = "Tab BF Script", Icon = "" }),
     Tab2 = Window:AddTab({ Title = "Tab Dead Rails Script", Icon = "" }),
     Tab3 = Window:AddTab({ Title = "Tab Universal Script", Icon = "" }),
+    Tab4 = Window:AddTab({ Title = "Tab Local Player", Icon = "" }),
     Settings = Window:AddTab({ Title = "Tab Theme/Config", Icon = "" })
 }
 
@@ -221,6 +222,37 @@ end
          loadstring(game:HttpGet("https://raw.githubusercontent.com/bomalalarblx/blox/refs/heads/main/silentaimuniversal"))()
        end
   })
+  Tabs.Tab3:AddButton({
+       Title = "Universe Viewer",
+       Description = "",
+       Callback = function()
+         loadstring(game:HttpGet("https://raw.githubusercontent.com/ltseverydayyou/uuuuuuu/main/Universe%20Viewer"))();
+       end
+  })
+  
+    local Slider = Tabs.Tab4:AddSlider("Slider", {
+        Title = "Walkspeed",
+        Description = "",
+        Default = 16,
+        Min = 0,
+        Max = 350,
+        Rounding = 1,
+        Callback = function(Value)
+            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
+        end
+    })
+    local Slider = Tabs.Tab4:AddSlider("Slider", {
+        Title = "Jumppower",
+        Description = "",
+        Default = 16,
+        Min = 0,
+        Max = 350,
+        Rounding = 1,
+        Callback = function(Value)
+            game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
+        end
+    })
+
 -- Addons:
 -- SaveManager (Allows you to have a configuration system)
 -- InterfaceManager (Allows you to have a interface managment system)
