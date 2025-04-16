@@ -244,7 +244,7 @@ end
     local Slider = Tabs.Tab4:AddSlider("Slider", {
         Title = "Jumppower",
         Description = "",
-        Default = 16,
+        Default = 50,
         Min = 0,
         Max = 350,
         Rounding = 1,
@@ -252,6 +252,7 @@ end
             game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
         end
     })
+    
 
 -- Addons:
 -- SaveManager (Allows you to have a configuration system)
