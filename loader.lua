@@ -19,6 +19,11 @@ local Tabs = {
     Tab3 = Window:AddTab({ Title = "Tab Universal Script", Icon = "" }),
     Tab4 = Window:AddTab({ Title = "Tab Local Player", Icon = "" }),
     Tab5 = Window:AddTab({ Title = "Tab Kaitun BF", Icon = "" }),
+    Tab6 = Window:AddTab({ Title = "Tab Hop Server", Icon = "" }),
+    Tab7 = Window:AddTab({ Title = "Tab PVP Script", Icon = "" }),
+    Tab8 = Window:AddTab({ Title = "Tab BABFT Script", Icon = "" }),
+    Tab9 = Window:AddTab({ Title = "Tab Farming", Icon = "" }),
+    TabOther = Window:AddTab({ Title = "Tab Other", Icon = "" }),
     Settings = Window:AddTab({ Title = "Tab Theme/Config", Icon = "" })
 }
 
@@ -151,7 +156,7 @@ end)
     })
 
 
-    local Keybind = Tabs.Main:AddKeybind("Keybind", {
+    local Keybind = Tabs.Settings:AddKeybind("Keybind", {
         Title = "KeyBind",
         Mode = "Toggle", -- Always, Toggle, Hold
         Default = "LeftControl", -- String as the name of the keybind (MB1, MB2 for mouse buttons)
@@ -230,7 +235,20 @@ end
          loadstring(game:HttpGet("https://raw.githubusercontent.com/ltseverydayyou/uuuuuuu/main/Universe%20Viewer"))();
        end
   })
-  
+  Tabs.Tab3:AddButton({
+       Title = "Yeet Gui(Fling)",
+       Description = "",
+       Callback = function()
+         loadstring(game:HttpGet("https://raw.githubusercontent.com/Flacherflache/FE-Yeet-Gui/refs/heads/main/Script"))()
+    end
+  })
+  Tabs.Tab3:AddButton({
+       Title = "Fly Gui V3",
+       Description = "",
+       Callback = function()
+         loadstring(game:HttpGet("https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt"))()
+       end
+  })
     local Slider = Tabs.Tab4:AddSlider("Slider", {
         Title = "Walkspeed",
         Description = "",
@@ -253,7 +271,17 @@ end
             game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
         end
     })
-    
+    local Slider = Tabs.Tab4:AddSlider("Slider", {
+        Title = "Gravity",
+        Description = "",
+        Default = 196,
+        Min = 0,
+        Max = 350,
+        Rounding = 1,
+        Callback = function(Value)
+            game.Workspace.Gravity = Value
+        end
+    })
     Tabs.Tab5:AddButton({
         Title = "Banana-Cat Hub",
         Description = "",
@@ -268,6 +296,89 @@ end
           repeat wait() until game:IsLoaded() and game.Players.LocalPlayer
 getgenv().Key = "10d136f561ea7b6dd6ec7831"
 loadstring(game:HttpGet("https://raw.githubusercontent.com/obiiyeuem/vthangsitink/refs/heads/main/BananaCat-KaitunLevi.lua"))()
+        end
+    })
+    Tabs.Tab5:AddButton({
+        Title = "Maru Hub(PE)",
+        Description = "",
+        Callback = function()
+          getgenv().Key = "MARU-29LDH-41X5-YOK6M-EY5A-RCEG2"
+getgenv().id = "1002555069805383680"
+getgenv().Script_Mode = "Kaitun_Script"
+loadstring(game:HttpGet("https://raw.githubusercontent.com/xshiba/MaruBitkub/main/Mobile.lua"))()
+        end
+    })
+    Tabs.Tab5:AddButton({
+        Title = "Quartyz Hub",
+        Description = "",
+        Callback = function()
+         getgenv().Mode = "OneClick"
+getgenv().Setting = {
+    ["Team"] = "Pirates", -- Options "Pirates", "Marines"
+    ["FucusOnLevel"] = true,
+    ["Fruits"] = {  -- setting for fruits u want
+        ["Primary"] = { -- if current fruit is not in this list, eat/buy
+            "Dough-Dough",
+            "Dragon-Dragon",
+            "Buddha-Buddha",
+            -- u can configs add mores/remove and must end with , (comma symbol)
+        },
+        ["Normal"] = { -- it just a normal fruit list
+            "Flame-Flame",
+            "Light-Light",
+            "Magma-Magma",
+            -- u can configs add mores/remove and must end with , (comma symbol)
+        }
+        -- run this for get all fruit name `local t={};for _,v in pairs(game.ReplicatedStorage.Remotes.CommF_:InvokeServer("GetFruits"))do table.insert(t,`"{v.Name}"`)end;setclipboard(table.concat(t, "\n"))`
+    },
+    ["IdleCheck"] = 150, -- every (x) seconds if not moving rejoin
+};
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/xQuartyx/QuartyzScript/main/Loader.lua"))()
+      end
+    })
+    Tabs.Tab6:AddButton({
+        Title = "Hop Server",
+        Description = "",
+        Callback = function()
+          loadstring(game:HttpGet("https://raw.githubusercontent.com/Morples/Server-hop/refs/heads/main/Script"))()
+        end
+    })
+    Tabs.Tab7:AddButton({
+        Title = "Quartyz Hub",
+        Description = "",
+        Callback = function()
+         getgenv().Mode = "PVP"
+getgenv().Team = "Pirates" -- Options "Marines", "Pirates"
+loadstring(game:HttpGet("https://raw.githubusercontent.com/xQuartyx/QuartyzScript/main/Loader.lua"))()
+        end
+    })
+    Tabs.Tab8:AddButton({
+         Title = "Quartyz Hub",
+         Description = "",
+         Callback = function()
+              loadstring(game:HttpGet"https://raw.githubusercontent.com/xQuartyx/DonateMe/main/BABFT")()
+        end
+    })
+    Tabs.Tab9:AddButton({
+         Title = "Auto Bond",
+         Description = "",
+         Callback = function()
+           loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
+        end
+    })
+    Tabs.Tab9:AddButton({
+        Title = "Auto Bounty",
+        Description = "",
+        Callback = function()
+          loadstring(game:HttpGet("https://raw.githubusercontent.com/bomalalarblx/.gg-kindperson/refs/heads/main/autobounty"))()
+        end
+    })
+    Tabs.TabOther:AddButton({
+        Title = "Anti AFK",
+        Description = "",
+        Callback = function()
+          loadstring(game:HttpGet("https://raw.githubusercontent.com/evxncodes/mainroblox/main/anti-afk", true))()
         end
     })
 -- Addons:
