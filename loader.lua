@@ -24,6 +24,8 @@ local Tabs = {
     Tab8 = Window:AddTab({ Title = "Tab BABFT Script", Icon = "" }),
     Tab9 = Window:AddTab({ Title = "Tab Farming", Icon = "" }),
     TabOther = Window:AddTab({ Title = "Tab Other", Icon = "" }),
+    TabOther2 = Window:AddTab({ Title = "Tab Pets Go", Icon = "" }),
+    Tab123 = Window:AddTab({ Title = "Tab Test", Icon = "" }),
     Settings = Window:AddTab({ Title = "Tab Theme/Config", Icon = "" })
 }
 
@@ -31,7 +33,7 @@ local Options = Fluent.Options
 
 do
     Fluent:Notify({
-        Title = "Paid Script",
+        Title = "Stuff Hub",
         Content = "Loading...",
         SubContent = "", -- Optional
         Duration = 5 -- Set to nil to make the notification not disappear
@@ -379,6 +381,76 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/xQuartyx/QuartyzScrip
         Description = "",
         Callback = function()
           loadstring(game:HttpGet("https://raw.githubusercontent.com/evxncodes/mainroblox/main/anti-afk", true))()
+        end
+    })
+    Tabs.TabOther:AddButton({
+        Title = "FPS Booster",
+        Description = "",
+        Callback = function()
+         _G.Ignore = {}
+_G.Settings = {
+    Players = {
+        ["Ignore Me"] = true,
+        ["Ignore Others"] = true,
+        ["Ignore Tools"] = true
+    },
+    Meshes = {
+        NoMesh = false,
+        NoTexture = false,
+        Destroy = false
+    },
+    Images = {
+        Invisible = true,
+        Destroy = false
+    },
+    Explosions = {
+        Smaller = true,
+        Invisible = false, -- Not for PVP games
+        Destroy = false -- Not for PVP games
+    },
+    Particles = {
+        Invisible = true,
+        Destroy = false
+    },
+    TextLabels = {
+        LowerQuality = true,
+        Invisible = false,
+        Destroy = false
+    },
+    MeshParts = {
+        LowerQuality = true,
+        Invisible = true,
+        NoTexture = true,
+        NoMesh = true,
+        Destroy = true
+    },
+    Other = {
+        ["FPS Cap"] = 240, -- true to uncap
+        ["No Camera Effects"] = true,
+        ["No Clothes"] = true,
+        ["Low Water Graphics"] = true,
+        ["No Shadows"] = true,
+        ["Low Rendering"] = true,    
+        ["Low Quality Parts"] = true,
+        ["Low Quality Models"] = true,
+        ["Reset Materials"] = true,
+    }
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/CasperFlyModz/discord.gg-rips/main/FPSBooster.lua"))()
+    end
+    })
+    Tabs.TabOther:AddButton({
+        Title = "Keyboard",
+        Description = "",
+        Callback = function()
+          loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifvsh/mobkeyboard/main/main.txt", true))()
+        end
+    })
+    Tabs.TabOther2:AddButton({
+        Title = "Rinns Hub",
+        Description = "",
+        Callback = function()
+           loadstring(game:HttpGet("https://raw.githubusercontent.com/SkibidiCen/MainMenu/main/Code"))()
         end
     })
 -- Addons:
