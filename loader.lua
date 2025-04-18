@@ -25,7 +25,7 @@ local Tabs = {
     Tab9 = Window:AddTab({ Title = "Tab Farming", Icon = "" }),
     TabOther = Window:AddTab({ Title = "Tab Other", Icon = "" }),
     TabOther2 = Window:AddTab({ Title = "Tab Pets Go", Icon = "" }),
-    Tab123 = Window:AddTab({ Title = "Tab Test", Icon = "" }),
+    Tab123 = Window:AddTab({ Title = "Tab Set", Icon = "" }),
     Settings = Window:AddTab({ Title = "Tab Theme/Config", Icon = "" })
 }
 
@@ -453,6 +453,27 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/CasperFlyModz/discord
            loadstring(game:HttpGet("https://raw.githubusercontent.com/SkibidiCen/MainMenu/main/Code"))()
         end
     })
+    local Toggle = Tabs.Tab123:AddToggle("MyToggle", {Title = "Set Speed Normal", Default = false })
+
+    Toggle:OnChanged(function()
+         game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16,Options.MyToggle.Value
+    end)
+
+    Options.MyToggle:SetValue(false)
+    local Toggle = Tabs.Tab123:AddToggle("MyToggle", {Title = "Set Jumppower Normal", Default = false })
+
+    Toggle:OnChanged(function()
+         game.Players.LocalPlayer.Character.Humanoid.JumpPower = 50,Options.MyToggle.Value
+    end)
+
+    Options.MyToggle:SetValue(false)
+    local Toggle = Tabs.Tab123:AddToggle("MyToggle", {Title = "Set Gravity Normal", Default = false })
+
+    Toggle:OnChanged(function()
+         game.Players.LocalPlayer.Character.Humanoid.JumpPower = 196,Options.MyToggle.Value
+    end)
+
+    Options.MyToggle:SetValue(false)
 -- Addons:
 -- SaveManager (Allows you to have a configuration system)
 -- InterfaceManager (Allows you to have a interface managment system)
