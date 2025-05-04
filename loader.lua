@@ -208,7 +208,7 @@ end
         Title = "Skull Hub",
         Description = "",
         Callback = function()
-         loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
+         loadstring(game:HttpGet('https://raw.githubusercontent.com/hungquan99/SkullHub/main/loader.lua'))()
         end
     })
   Tabs.Tab3:AddButton({
@@ -368,7 +368,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/xQuartyx/QuartyzScrip
          Title = "Auto Bond",
          Description = "",
          Callback = function()
-           loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
+           loadstring(game:HttpGet('https://raw.githubusercontent.com/hungquan99/SkullHub/main/loader.lua'))()
         end
     })
     Tabs.Tab9:AddButton({
