@@ -15,6 +15,8 @@ local Window = Fluent:CreateWindow({
 --Fluent provides Lucide Icons https://lucide.dev/icons/ for the tabs, icons are optional
 local Tabs = {
     Main = Window:AddTab({ Title = "Tab BF Script", Icon = "" }),
+    TabNew = Window:AddTab({ Title = "Tab Grow A Garden Script", Icon = "" }),
+    TabNew2 = Window:AddTab({ Title = "Tab MM2 Script", Icon = "" }),
     Tab2 = Window:AddTab({ Title = "Tab Dead Rails Script", Icon = "" }),
     Tab3 = Window:AddTab({ Title = "Tab Universal Script", Icon = "" }),
     Tab4 = Window:AddTab({ Title = "Tab Local Player", Icon = "" }),
@@ -453,6 +455,23 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/CasperFlyModz/discord
            loadstring(game:HttpGet("https://raw.githubusercontent.com/SkibidiCen/MainMenu/main/Code"))()
         end
     })
+    Tabs.TabNew:AddButton({
+        Title = "Kiciahook",
+        Description = "",
+        Callback = function()
+           loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/b7d180acad508c48c140afe43d01ea0c.lua"))()
+        end
+    })
+    Tabs.TabNew:AddButton({
+        Title = "Best Script",
+        Description = "",
+        Callback = function()
+           --[[
+	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+]]
+loadstring(game:HttpGet("https://raw.githubusercontent.com/ameicaa1/Grow-a-Garden/main/Grow_A_Garden.lua"))()
+        end
+    })
     local Toggle = Tabs.Tab123:AddToggle("MyToggle", {Title = "Set Speed Normal", Default = false })
 
     Toggle:OnChanged(function()
@@ -474,6 +493,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/CasperFlyModz/discord
     end)
 
     Options.MyToggle:SetValue(false)
+
 -- Addons:
 -- SaveManager (Allows you to have a configuration system)
 -- InterfaceManager (Allows you to have a interface managment system)
