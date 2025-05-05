@@ -26,6 +26,7 @@ local Tabs = {
     Tab8 = Window:AddTab({ Title = "Tab BABFT Script", Icon = "" }),
     Tab9 = Window:AddTab({ Title = "Tab Farming", Icon = "" }),
     TabOther = Window:AddTab({ Title = "Tab Other", Icon = "" }),
+    TabHUB = Window:AddTab({ Title = "Tab Custom Hub", Icon = "" }),
     TabOther2 = Window:AddTab({ Title = "Tab Pets Go", Icon = "" }),
     Tab123 = Window:AddTab({ Title = "Tab Set", Icon = "" }),
     Settings = Window:AddTab({ Title = "Tab Theme/Config", Icon = "" })
@@ -36,20 +37,21 @@ local Options = Fluent.Options
 do
     Fluent:Notify({
         Title = "Stuff Hub",
-        Content = "Loading...",
+        Content = "Loaded",
         SubContent = "", -- Optional
         Duration = 5 -- Set to nil to make the notification not disappear
     })
-
-
-
-    Tabs.Main:AddParagraph({
-        Title = "Supported Script:",
-        Content = "Maru,Banana,W-azure"
+    Tabs.Main:AddButton({
+        Title = "W-azure True V2(Premium)",
+        Description = "",
+        Callback = function()
+          script_key = "nforlZPARKXHuWFMPQQqkwctQkjMvgzP"
+getgenv().Team = "Marines"
+getgenv().FixCrash = false -- Turn it On For Hopping Server, Improve Performance But Silent Aim On Mob And Player
+getgenv().FixCrash2 = false -- Turn it On For Hopping Server, Improve Performance But Will Remove Speed Changer
+loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/3b2169cf53bc6104dabe8e19562e5cc2.lua"))()
+       end
     })
-
-
-
     Tabs.Main:AddButton({
         Title = "W-azure True V2(Free)",
         Description = "",
@@ -472,6 +474,38 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/CasperFlyModz/discord
 loadstring(game:HttpGet("https://raw.githubusercontent.com/ameicaa1/Grow-a-Garden/main/Grow_A_Garden.lua"))()
         end
     })
+    Tabs.TabNew2:AddButton({
+        Title = "Yarhm",
+        Description = "",
+        Callback = function()
+          loadstring(game:HttpGet("https://raw.githubusercontent.com/Joystickplays/psychic-octo-invention/main/yarhm.lua", false))()
+        end
+    })
+    Tabs.Tab2:AddButton({
+        Title = "Native Hub",
+        Description = "",
+        Callback = function()
+          loadstring(game:HttpGet("https://getnative.cc/script/loader"))()
+        end
+    })
+    Tabs.TabHUB:AddButton({
+        Title = "Custom Hub",
+        Description = "",
+        Callback = function()
+          print("team kindperson join today!")
+        end
+    })
+    Tabs.TabHUB:AddParagraph({
+        Title = "---------",
+        Content = ""
+    })
+    Tabs.TabHUB:AddButton({
+        Title = "Kill Roblox",
+        Description = "",
+        Callback = function()
+          loadstring(game:HttpGet("https://youtube.com"))()
+        end
+    })
     local Toggle = Tabs.Tab123:AddToggle("MyToggle", {Title = "Set Speed Normal", Default = false })
 
     Toggle:OnChanged(function()
@@ -493,6 +527,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/ameicaa1/Grow-a-Garde
     end)
 
     Options.MyToggle:SetValue(false)
+    
 
 -- Addons:
 -- SaveManager (Allows you to have a configuration system)
