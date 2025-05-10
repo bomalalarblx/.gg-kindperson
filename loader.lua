@@ -213,6 +213,24 @@ end
          loadstring(game:HttpGet('https://raw.githubusercontent.com/hungquan99/SkullHub/main/loader.lua'))()
         end
     })
+  Tabs.Tab2:AddButton({
+        Title = "Native Hub",
+        Description = "",
+        Callback = function()
+          loadstring(game:HttpGet("https://getnative.cc/script/loader"))()
+        end
+    })
+  Tabs.Tab2:AddParagraph({
+        Title = "Teleport",
+        Content = "Teleport Section"
+    })
+  Tabs.Tab2:AddButton({
+     Title = "Teleport Train",
+     Description = "",
+     Callback = function()
+     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(59.6720085, 10.2199755, 29817.6973, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+     end
+  })
   Tabs.Tab3:AddButton({
         Title = "Infinite Yield",
         Description = "",
@@ -542,13 +560,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/ameicaa1/Grow-a-Garde
         Description = "",
         Callback = function()
           loadstring(game:HttpGet("https://raw.githubusercontent.com/Joystickplays/psychic-octo-invention/main/yarhm.lua", false))()
-        end
-    })
-    Tabs.Tab2:AddButton({
-        Title = "Native Hub",
-        Description = "",
-        Callback = function()
-          loadstring(game:HttpGet("https://getnative.cc/script/loader"))()
         end
     })
     Tabs.TabHUB:AddButton({
