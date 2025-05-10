@@ -498,6 +498,45 @@ end,Options.MyToggle.Value)
 loadstring(game:HttpGet("https://raw.githubusercontent.com/ameicaa1/Grow-a-Garden/main/Grow_A_Garden.lua"))()
         end
     })
+    Tabs.TabNew:AddParagraph({
+        Title = "Teleport",
+        Content = "Teleport Section"
+    })
+    Tabs.TabNew:AddButton({
+        Title = "Teleport Pet Shop",
+        Description = "",
+        Callback = function()
+      game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-264.052063, 4.00624084, -11.9568653, -1.1920929e-07, -0, -1.00000012, 0, 1, -0, 1.00000012, 0, -1.1920929e-07)
+    end
+    })
+    Tabs.TabNew:AddButton({
+        Title = "Teleport Gear Shop",
+        Description = "",
+        Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-270.937988, 4.65382004, -36.1359177, -1.1920929e-07, -0, -1.00000012, 0, 1, -0, 1.00000012, 0, -1.1920929e-07)
+    end
+    })
+    Tabs.TabNew:AddButton({
+        Title = "Teleport Seed Shop",
+        Description = "",
+        Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(70.9382019, 4.65382099, -21.9316025, -1.1920929e-07, 0, 1.00000012, 0, 1, 0, -1.00000012, 0, -1.1920929e-07)
+    end
+    })
+    Tabs.TabNew:AddButton({
+        Title = "Teleport Sell Shop",
+        Description = "",
+        Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(70.9382019, 4.65382099, 5.47845554, -1.1920929e-07, 0, 1.00000012, 0, 1, 0, -1.00000012, 0, -1.1920929e-07)
+    end
+    })
+    Tabs.TabNew:AddButton({
+        Title = "Teleport Hungry Plant",
+        Description = "",
+        Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-99.5022507, 1.10001338, -11.7994785, -1.1920929e-07, 0, -1.00000012, 0, 1, 0, 1.00000012, 0, -1.1920929e-07)
+    end
+    })
     Tabs.TabNew2:AddButton({
         Title = "Yarhm",
         Description = "",
