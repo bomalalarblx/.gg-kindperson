@@ -524,35 +524,54 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/ameicaa1/Grow-a-Garde
         Title = "Teleport Pet Shop",
         Description = "",
         Callback = function()
-      game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-264.052063, 4.00624084, -11.9568653, -1.1920929e-07, -0, -1.00000012, 0, 1, -0, 1.00000012, 0, -1.1920929e-07)
+      game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-260.41452, 2.76619363, -9.37789536, 0, 0, 1, 0, 1, -0, -1, 0, 0)
     end
     })
     Tabs.TabNew:AddButton({
         Title = "Teleport Gear Shop",
         Description = "",
         Callback = function()
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-270.937988, 4.65382004, -36.1359177, -1.1920929e-07, -0, -1.00000012, 0, 1, -0, 1.00000012, 0, -1.1920929e-07)
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-260.41452, 2.76619363, -31.3778954, 0, 0, 1, 0, 1, -0, -1, 0, 0)
     end
     })
     Tabs.TabNew:AddButton({
         Title = "Teleport Seed Shop",
         Description = "",
         Callback = function()
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(70.9382019, 4.65382099, -21.9316025, -1.1920929e-07, 0, 1.00000012, 0, 1, 0, -1.00000012, 0, -1.1920929e-07)
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(61.5854721, 2.76619363, -27.0039806, 0, 0, -1, 0, 1, 0, 1, 0, 0)
     end
     })
     Tabs.TabNew:AddButton({
         Title = "Teleport Sell Shop",
         Description = "",
         Callback = function()
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(70.9382019, 4.65382099, 5.47845554, -1.1920929e-07, 0, 1.00000012, 0, 1, 0, -1.00000012, 0, -1.1920929e-07)
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(61.5854721, 2.76619363, 0.426784277, 0, 0, -1, 0, 1, 0, 1, 0, 0)
     end
     })
     Tabs.TabNew:AddButton({
-        Title = "Teleport Hungry Plant",
+        Title = "Teleport Wise Old Owl",
         Description = "",
         Callback = function()
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-99.5022507, 1.10001338, -11.7994785, -1.1920929e-07, 0, -1.00000012, 0, 1, 0, 1.00000012, 0, -1.1920929e-07)
+    end
+    })
+    Tabs.TabNew:AddButton({
+        Title = "Teleport Testing Place",
+        Description = "",
+        Callback = function()
+        -- Get TeleportService and Players
+local TeleportService = game:GetService("TeleportService")
+local Players = game:GetService("Players")
+
+-- Get the target player and the destination PlaceId
+local targetPlayer = Players:GetPlayerByName("txdtlil") -- Replace with the player's username
+local placeId = 91867617264223 -- Replace with the ID of the destination place
+
+-- Check if the player exists
+if targetPlayer then
+    -- Teleport the player to the specified place instance
+    TeleportService:TeleportToPlaceInstance(placeId, targetPlayer)
+end
     end
     })
     Tabs.TabNew2:AddButton({
