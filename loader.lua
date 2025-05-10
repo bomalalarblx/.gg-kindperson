@@ -450,6 +450,30 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/CasperFlyModz/discord
           loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifvsh/mobkeyboard/main/main.txt", true))()
         end
     })
+    Tabs.TabOther:AddButton({
+        Title = "White Screen + Boost FPS",
+        Description = "",
+        Callback = function()
+          loadstring(game:HttpGet("https://raw.githubusercontent.com/bomalalarblx/.gg-kindperson/refs/heads/main/whitescreen"))()
+        end
+    })
+    local Toggle = Tabs.TabOther:AddToggle("MyToggle", {Title = "Full Bright", Default = false })
+
+    Toggle:OnChanged(function(Value)
+            if Value then
+            game:GetService("Lighting").Brightness = 10
+            game:GetService("Lighting").ClockTime = 12
+            game:GetService("Lighting").FogEnd = 10000
+            game:GetService("Lighting").GlobalShadows = true
+            game:GetService("Lighting").OutdoorAmbient = Color3.fromRGB(127, 127, 127)
+        else
+            game:GetService("Lighting").Brightness = 2
+            game:GetService("Lighting").ClockTime = 14
+            game:GetService("Lighting").FogEnd = 100000
+            game:GetService("Lighting").GlobalShadows = false
+            game:GetService("Lighting").OutdoorAmbient = Color3.fromRGB(128, 128, 128)
+        end
+end,Options.MyToggle.Value)
     Tabs.TabOther2:AddButton({
         Title = "Rinns Hub",
         Description = "",
