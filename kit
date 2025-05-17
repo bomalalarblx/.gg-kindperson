@@ -1,0 +1,257 @@
+--[[
+    Ultimate White Screen Utility UI
+    Features:
+      - Moveable, draggable white screen UI (with close button)
+      - Anti-AFK: Prevents Roblox from kicking for inactivity
+      - BoostFPS: Lowers graphics and disables effects for performance
+      - Boost Ping: (Tries to reduce network lag by clearing effects)
+      - Toggleable Aimbot (simple camera lock to nearest player)
+      - Toggleable Delete Whole Map (removes all workspace parts except character & camera)
+    Place as a LocalScript in StarterGui.
+--]]
+
+local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+local mouse = player:GetMouse()
+
+-- === Helper: Tween Service for smooth toggle color ===
+local TweenService = game:GetService("TweenService")
+
+-- === UI Creation ===
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "UltimateWhiteScreenUtility"
+screenGui.Parent = playerGui
+screenGui.ResetOnSpawn = false
+
+local mainFrame = Instance.new("Frame")
+mainFrame.Size = UDim2.new(0, 440, 0, 400)
+mainFrame.Position = UDim2.new(0.5, -220, 0.5, -200)
+mainFrame.BackgroundColor3 = Color3.fromRGB(255,255,255)
+mainFrame.BorderSizePixel = 0
+mainFrame.Active = true
+mainFrame.Draggable = true
+mainFrame.Parent = screenGui
+
+local uicorner = Instance.new("UICorner", mainFrame)
+uicorner.CornerRadius = UDim.new(0, 16)
+
+-- Title
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, 0, 0, 50)
+title.Position = UDim2.new(0, 0, 0, 0)
+title.BackgroundTransparency = 1
+title.Text = "Stuff Hub-skid"
+title.Font = Enum.Font.GothamBold
+title.TextColor3 = Color3.fromRGB(0,0,0)
+title.TextScaled = true
+title.Parent = mainFrame
+
+-- Close button
+local closeBtn = Instance.new("TextButton")
+closeBtn.Size = UDim2.new(0, 38, 0, 38)
+closeBtn.Position = UDim2.new(1, -50, 0, 6)
+closeBtn.BackgroundColor3 = Color3.fromRGB(230,230,230)
+closeBtn.Text = "✕"
+closeBtn.Font = Enum.Font.GothamBold
+closeBtn.TextColor3 = Color3.fromRGB(80,80,80)
+closeBtn.TextScaled = true
+closeBtn.Parent = mainFrame
+
+local closeCorner = Instance.new("UICorner", closeBtn)
+closeCorner.CornerRadius = UDim.new(1, 0)
+
+closeBtn.MouseButton1Click:Connect(function()
+    screenGui:Destroy()
+end)
+
+-- === Button Factory ===
+local function makeToggleButton(y, text)
+    local btn = Instance.new("TextButton")
+    btn.Size = UDim2.new(0, 390, 0, 42)
+    btn.Position = UDim2.new(0, 25, 0, y)
+    btn.BackgroundColor3 = Color3.fromRGB(250,250,250)
+    btn.BorderSizePixel = 0
+    btn.Text = text
+    btn.Font = Enum.Font.GothamBold
+    btn.TextColor3 = Color3.fromRGB(0,0,0)
+    btn.TextScaled = true
+    btn.AutoButtonColor = true
+    btn.Parent = mainFrame
+    local corner = Instance.new("UICorner", btn)
+    corner.CornerRadius = UDim.new(0, 12)
+    return btn
+end
+
+-- === Toggleable Buttons ===
+local aimBotBtn = makeToggleButton(70, "[ OFF ] Toggle Aimbot")
+local delMapBtn = makeToggleButton(120, "[ OFF ] Delete Whole Map")
+local fpsBtn = makeToggleButton(170, "Boost FPS")
+local pingBtn = makeToggleButton(220, "Boost Ping")
+local antiAfkBtn = makeToggleButton(270, "Anti-AFK (Always ON)")
+
+-- Status
+local statusLabel = Instance.new("TextLabel")
+statusLabel.Size = UDim2.new(1, 0, 0, 50)
+statusLabel.Position = UDim2.new(0, 0, 1, -50)
+statusLabel.BackgroundTransparency = 1
+statusLabel.Text = "Status: Ready"
+statusLabel.Font = Enum.Font.Gotham
+statusLabel.TextColor3 = Color3.fromRGB(30,30,30)
+statusLabel.TextScaled = true
+statusLabel.Parent = mainFrame
+
+-- === Anti-AFK ===
+if getconnections then
+    for _,v in pairs(getconnections(player.Idled)) do
+        v:Disable()
+    end
+end
+player.Idled:Connect(function()
+    game:GetService("VirtualUser"):Button2Down(Vector2.new(0,0), workspace.CurrentCamera.CFrame)
+    wait(1)
+    game:GetService("VirtualUser"):Button2Up(Vector2.new(0,0), workspace.CurrentCamera.CFrame)
+end)
+
+-- === BoostFPS ===
+local function boostFPS()
+    -- Quality settings
+    pcall(function()
+        settings().Rendering.QualityLevel = Enum.QualityLevel.Level01
+    end)
+    -- Remove Lighting effects
+    for _,v in pairs(game:GetService("Lighting"):GetChildren()) do
+        if v:IsA("BlurEffect") or v:IsA("SunRaysEffect") or v:IsA("ColorCorrectionEffect") or v:IsA("BloomEffect") or v:IsA("DepthOfFieldEffect") then
+            v.Enabled = false
+        end
+    end
+    -- Remove decals, textures, particles
+    for _,v in pairs(workspace:GetDescendants()) do
+        if v:IsA("Decal") or v:IsA("Texture") then
+            v.Transparency = 1
+        elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
+            v.Enabled = false
+        elseif v:IsA("Explosion") then
+            v.Visible = false
+        end
+    end
+    -- Remove terrain decoration
+    if workspace:FindFirstChildOfClass("Terrain") then
+        workspace.Terrain.Decoration = false
+    end
+    statusLabel.Text = "Status: FPS Boosted!"
+end
+
+fpsBtn.MouseButton1Click:Connect(boostFPS)
+
+-- === Boost Ping (Clears workspace trash and sets Network settings) ===
+local function boostPing()
+    for _,v in pairs(workspace:GetDescendants()) do
+        if v:IsA("Smoke") or v:IsA("Fire") or v:IsA("Sparkles") or v:IsA("Explosion") or v:IsA("ParticleEmitter") then
+            v:Destroy()
+        end
+    end
+    pcall(function()
+        settings().Network.IncomingReplicationLag = 0
+        settings().Network.OutgoingReplicationLag = 0
+    end)
+    statusLabel.Text = "Status: Ping Boosted!"
+end
+
+pingBtn.MouseButton1Click:Connect(boostPing)
+
+-- === Toggleable Aimbot ===
+local aimbotEnabled = false
+local aimbotConnection = nil
+local aimRange = 1000
+
+local function getClosestPlayer()
+    local minDist, target = math.huge, nil
+    for _,plr in pairs(game.Players:GetPlayers()) do
+        if plr ~= player and plr.Character and plr.Character:FindFirstChild("Head") and plr.Character:FindFirstChild("Humanoid") and plr.Character.Humanoid.Health > 0 then
+            local dist = (player.Character.Head.Position - plr.Character.Head.Position).magnitude
+            if dist < minDist and dist < aimRange then
+                minDist = dist
+                target = plr
+            end
+        end
+    end
+    return target
+end
+
+local function enableAimbot()
+    if aimbotConnection then return end
+    aimbotConnection = game:GetService("RunService").RenderStepped:Connect(function()
+        local target = getClosestPlayer()
+        if target and target.Character and target.Character:FindFirstChild("Head") then
+            local cam = workspace.CurrentCamera
+            cam.CFrame = CFrame.new(cam.CFrame.Position, target.Character.Head.Position)
+        end
+    end)
+    statusLabel.Text = "Status: Aimbot ON"
+end
+
+local function disableAimbot()
+    if aimbotConnection then
+        aimbotConnection:Disconnect()
+        aimbotConnection = nil
+        statusLabel.Text = "Status: Aimbot OFF"
+    end
+end
+
+aimBotBtn.MouseButton1Click:Connect(function()
+    aimbotEnabled = not aimbotEnabled
+    if aimbotEnabled then
+        aimBotBtn.Text = "[ ON ] Toggle Aimbot"
+        aimBotBtn.BackgroundColor3 = Color3.fromRGB(150,255,150)
+        enableAimbot()
+    else
+        aimBotBtn.Text = "[ OFF ] Toggle Aimbot"
+        aimBotBtn.BackgroundColor3 = Color3.fromRGB(250,250,250)
+        disableAimbot()
+    end
+end)
+
+-- === Toggleable Delete Whole Map ===
+local delMapEnabled = false
+local function deleteMap()
+    for _,v in pairs(workspace:GetChildren()) do
+        if v ~= player.Character and v ~= workspace.CurrentCamera and v.Name ~= "Terrain" then
+            pcall(function() v:Destroy() end)
+        end
+    end
+    statusLabel.Text = "Status: Map Deleted!"
+end
+
+delMapBtn.MouseButton1Click:Connect(function()
+    delMapEnabled = not delMapEnabled
+    if delMapEnabled then
+        delMapBtn.Text = "[ ON ] Delete Whole Map"
+        delMapBtn.BackgroundColor3 = Color3.fromRGB(255,170,170)
+        deleteMap()
+    else
+        delMapBtn.Text = "[ OFF ] Delete Whole Map"
+        delMapBtn.BackgroundColor3 = Color3.fromRGB(250,250,250)
+        -- No undo for map deletion!
+        statusLabel.Text = "Status: Map deletion is irreversible."
+    end
+end)
+
+-- === Info: Anti-AFK always enabled ===
+antiAfkBtn.Text = "Anti-AFK (Always ON)"
+antiAfkBtn.BackgroundColor3 = Color3.fromRGB(230,230,255)
+antiAfkBtn.AutoButtonColor = false
+antiAfkBtn.Active = false
+
+-- === Initial Status ===
+statusLabel.Text = "Status: Ready"
+
+-- === Instructions (Optional) ===
+local instructions = Instance.new("TextLabel")
+instructions.Size = UDim2.new(1, -40, 0, 35)
+instructions.Position = UDim2.new(0, 20, 1, -95)
+instructions.BackgroundTransparency = 1
+instructions.Text = "Drag UI | Use toggles | 'Delete Map' is NOT reversible!"
+instructions.Font = Enum.Font.GothamSemibold
+instructions.TextColor3 = Color3.fromRGB(120,120,120)
+instructions.TextScaled = true
+instructions.Parent = mainFrame
