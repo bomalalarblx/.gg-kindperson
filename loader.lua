@@ -542,6 +542,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/ameicaa1/Grow-a-Garde
         Description = "",
         Callback = function()
             loadstring(game:HttpGet("https://raw.githubusercontent.com/kosowa/asd/refs/heads/main/GaG.lua"))()
+	end
     })
     Tabs.TabNew:AddParagraph({
         Title = "Teleport",
