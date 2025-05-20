@@ -475,6 +475,20 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/CasperFlyModz/discord
           loadstring(game:HttpGet("https://raw.githubusercontent.com/bomalalarblx/.gg-kindperson/refs/heads/main/whitescreen"))()
         end
     })
+    Tabs.TabOther:AddButton({
+        Title = "Stuff Hub-Skid",
+        Description = "random skid",
+        Callback = function()
+          loadstring(game:HttpGet("https://raw.githubusercontent.com/bomalalarblx/.gg-kindperson/refs/heads/main/kit"))()
+        end
+    })
+    Tabs.TabOther:AddButton({
+        Title = "Blox Fruit Kit",
+        Description = "",
+        Callback = function()
+           loadstring(game:HttpGet("https://raw.githubusercontent.com/bomalalarblx/.gg-kindperson/refs/heads/main/bloxfruitkit"))()
+        end
+    })
     local Toggle = Tabs.TabOther:AddToggle("MyToggle", {Title = "Full Bright", Default = false })
 
     Toggle:OnChanged(function(Value)
@@ -507,7 +521,7 @@ end,Options.MyToggle.Value)
         end
     })
     Tabs.TabNew:AddButton({
-        Title = "Best Script",
+        Title = "Best Script(Not Working)",
         Description = "",
         Callback = function()
            --[[
@@ -515,6 +529,19 @@ end,Options.MyToggle.Value)
 ]]
 loadstring(game:HttpGet("https://raw.githubusercontent.com/ameicaa1/Grow-a-Garden/main/Grow_A_Garden.lua"))()
         end
+    })
+    Tabs.TabNew:AddButton({
+        Title = "Native Hub",
+        Description = "",
+        Callback = function()
+            loadstring(game:HttpGet("https://getnative.cc/script/loader"))()
+        end
+    })
+    Tabs.TabNew:AddButton({
+        Title = "New Script",
+        Description = "",
+        Callback = function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/kosowa/asd/refs/heads/main/GaG.lua"))()
     })
     Tabs.TabNew:AddParagraph({
         Title = "Teleport",
@@ -556,7 +583,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/ameicaa1/Grow-a-Garde
     end
     })
     Tabs.TabNew:AddButton({
-        Title = "Teleport Testing Place",
+        Title = "Teleport Testing Place(Not Working)",
         Description = "",
         Callback = function()
         -- Get TeleportService and Players
@@ -585,12 +612,8 @@ end
         Title = "Custom Hub",
         Description = "",
         Callback = function()
-          print("team kindperson join today!")
+          print("Coming Soon!")
         end
-    })
-    Tabs.TabHUB:AddParagraph({
-        Title = "---------",
-        Content = ""
     })
     Tabs.TabHUB:AddButton({
         Title = "Kill Roblox",
