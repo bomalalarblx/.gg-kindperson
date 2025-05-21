@@ -27,7 +27,10 @@ do
         SubContent = "", -- Optional
         Duration = 5 -- Set to nil to make the notification not disappear
     })
-
+    Tabs.Main:AddParagraph({
+        Title = "Version, must below 1247 or 1236 to buy",
+        Content = "" .. game.PlaceVersion
+    })
     Tabs.Main:AddButton({
         Title = "Old Server Finder",
         Description = "",
@@ -35,7 +38,7 @@ do
             loadstring(game:HttpGet("https://raw.githubusercontent.com/M-E-N-A-C-E/Menace-Hub/refs/heads/main/Old%20Server%20Finder%20Grow%20a%20Garden", true))()
         end
     })
-  Tabs.Main:AddButton({
+    Tabs.Main:AddButton({
         Title = "Hop Server (Normal)",
         Description = "",
         Callback = function()
