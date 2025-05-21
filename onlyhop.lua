@@ -14,7 +14,8 @@ local Window = Fluent:CreateWindow({
 
 --Fluent provides Lucide Icons https://lucide.dev/icons/ for the tabs, icons are optional
 local Tabs = {
-    Main = Window:AddTab({ Title = "Hop", Icon = "" })
+    Main = Window:AddTab({ Title = "Hop", Icon = "" }),
+    Script = Window:AddTab({ Title = "Script", Icon = "" })
 }
 
 local Options = Fluent.Options
@@ -39,6 +40,34 @@ do
         Description = "",
         Callback = function()
             loadstring(game:HttpGet("https://raw.githubusercontent.com/Morples/Server-hop/refs/heads/main/Script"))()
+        end
+    })
+    Tabs.Script:AddButton({
+         Title = "Native Hub(Key)",
+         Description = "",
+         Callback = function()
+                loadstring(game:HttpGet("https://getnative.cc/script/loader"))()
+        end
+    })
+    Tabs.Script:AddButton({
+        Title = "NoLag Hub(No Key)",
+        Description = "",
+        Callback = function()
+           --[[
+	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+]]
+repeat wait() until game:IsLoaded() and game.Players.LocalPlayer
+
+local scripts = {
+    [126884695634066] = "https://raw.githubusercontent.com/NoLag-id/No-Lag-HUB/refs/heads/main/Garden/Garden-V1.lua",
+    [81440632616906] = "https://raw.githubusercontent.com/NoLag-id/No-Lag-HUB/refs/heads/main/DigEarth/V1.lua",
+}
+
+local url = scripts[game.PlaceId]
+if url then
+    loadstring(game:HttpGetAsync(url))()
+    loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/NoLag-id/No-Lag-HUB/refs/heads/main/untitled.lua"))()
+end
         end
     })
 end
