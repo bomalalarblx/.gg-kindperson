@@ -1,0 +1,144 @@
+-- Place this LocalScript in StarterPlayerScripts
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local LocalPlayer = Players.LocalPlayer
+
+-- UI Setup
+local ScreenGui = Instance.new("ScreenGui", LocalPlayer.PlayerGui)
+ScreenGui.Name = "TargetStrafeGui"
+
+local MainFrame = Instance.new("Frame", ScreenGui)
+MainFrame.Size = UDim2.new(0, 250, 0, 300)
+MainFrame.Position = UDim2.new(0, 20, 0, 100)
+MainFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 40)
+MainFrame.BorderSizePixel = 0
+
+local Title = Instance.new("TextLabel", MainFrame)
+Title.Size = UDim2.new(1, 0, 0, 30)
+Title.Text = "Target Strafe"
+Title.TextColor3 = Color3.new(1, 1, 1)
+Title.BackgroundTransparency = 1
+Title.Font = Enum.Font.SourceSansBold
+Title.TextSize = 20
+
+local PlayerList = Instance.new("ScrollingFrame", MainFrame)
+PlayerList.Size = UDim2.new(1, -20, 0, 100)
+PlayerList.Position = UDim2.new(0, 10, 0, 40)
+PlayerList.CanvasSize = UDim2.new(0, 0, 0, 0)
+PlayerList.ScrollBarThickness = 6
+PlayerList.BackgroundColor3 = Color3.fromRGB(45, 45, 50)
+PlayerList.BorderSizePixel = 0
+
+local StrafeToggle = Instance.new("TextButton", MainFrame)
+StrafeToggle.Size = UDim2.new(1, -20, 0, 30)
+StrafeToggle.Position = UDim2.new(0, 10, 0, 150)
+StrafeToggle.Text = "Enable Strafe"
+StrafeToggle.Font = Enum.Font.SourceSans
+StrafeToggle.TextSize = 18
+StrafeToggle.BackgroundColor3 = Color3.fromRGB(55, 200, 100)
+StrafeToggle.TextColor3 = Color3.new(1, 1, 1)
+
+local StrafeRadius = Instance.new("TextBox", MainFrame)
+StrafeRadius.Size = UDim2.new(1, -20, 0, 25)
+StrafeRadius.Position = UDim2.new(0, 10, 0, 190)
+StrafeRadius.PlaceholderText = "Strafe Radius (studs, e.g. 8)"
+StrafeRadius.Text = "8"
+StrafeRadius.Font = Enum.Font.SourceSans
+StrafeRadius.TextSize = 16
+
+local StrafeSpeed = Instance.new("TextBox", MainFrame)
+StrafeSpeed.Size = UDim2.new(1, -20, 0, 25)
+StrafeSpeed.Position = UDim2.new(0, 10, 0, 225)
+StrafeSpeed.PlaceholderText = "Strafe Speed (deg/sec, e.g. 90)"
+StrafeSpeed.Text = "90"
+StrafeSpeed.Font = Enum.Font.SourceSans
+StrafeSpeed.TextSize = 16
+
+-- Logic
+local selectedTarget = nil
+local strafing = false
+local radius = 8
+local speed = 90 -- degrees per second
+
+local function updatePlayerList()
+    PlayerList:ClearAllChildren()
+    local y = 0
+    for _, plr in ipairs(Players:GetPlayers()) do
+        if plr ~= LocalPlayer and plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") then
+            local btn = Instance.new("TextButton")
+            btn.Size = UDim2.new(1, 0, 0, 25)
+            btn.Position = UDim2.new(0, 0, 0, y)
+            btn.Text = plr.Name
+            btn.Parent = PlayerList
+            btn.MouseButton1Click:Connect(function()
+                selectedTarget = plr
+                for _, child in ipairs(PlayerList:GetChildren()) do
+                    if child:IsA("TextButton") then
+                        child.BackgroundColor3 = Color3.fromRGB(45,45,50)
+                    end
+                end
+                btn.BackgroundColor3 = Color3.fromRGB(80,120,200)
+            end)
+            y = y + 25
+        end
+    end
+    PlayerList.CanvasSize = UDim2.new(0, 0, 0, y)
+end
+
+Players.PlayerAdded:Connect(updatePlayerList)
+Players.PlayerRemoving:Connect(updatePlayerList)
+updatePlayerList()
+
+StrafeRadius.FocusLost:Connect(function()
+    local val = tonumber(StrafeRadius.Text)
+    if val then radius = val end
+end)
+
+StrafeSpeed.FocusLost:Connect(function()
+    local val = tonumber(StrafeSpeed.Text)
+    if val then speed = val end
+end)
+
+StrafeToggle.MouseButton1Click:Connect(function()
+    strafing = not strafing
+    StrafeToggle.Text = strafing and "Disable Strafe" or "Enable Strafe"
+    StrafeToggle.BackgroundColor3 = strafing and Color3.fromRGB(200,70,70) or Color3.fromRGB(55,200,100)
+end)
+
+-- Strafe Logic
+local angle = 0
+RunService.RenderStepped:Connect(function(dt)
+    if strafing and selectedTarget and selectedTarget.Character and selectedTarget.Character:FindFirstChild("HumanoidRootPart") and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+        angle = angle + math.rad(speed) * dt
+        local targetRoot = selectedTarget.Character.HumanoidRootPart
+        local myRoot = LocalPlayer.Character.HumanoidRootPart
+
+        local targetPos = targetRoot.Position
+        local offset = Vector3.new(math.cos(angle) * radius, 0, math.sin(angle) * radius)
+        local desiredPos = targetPos + offset
+        local char = LocalPlayer.Character
+        -- Teleport method (for demo, replace with pathfinding or movement for smoothness)
+        myRoot.CFrame = CFrame.new(desiredPos, targetPos)
+    end
+end)
+
+-- Optional: Drag to move UI
+local dragging, dragStart, startPos
+MainFrame.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        dragging = true
+        dragStart = input.Position
+        startPos = MainFrame.Position
+    end
+end)
+MainFrame.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        dragging = false
+    end
+end)
+game:GetService("UserInputService").InputChanged:Connect(function(input)
+    if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+        local delta = input.Position - dragStart
+        MainFrame.Position = startPos + UDim2.new(0, delta.X, 0, delta.Y)
+    end
+end)
