@@ -1,0 +1,72 @@
+local Stats = game:GetService("Stats")
+local Players = game:GetService("Players")
+
+local player = Players.LocalPlayer
+
+-- UI Setup
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local PingLabel = Instance.new("TextLabel")
+local RegionLabel = Instance.new("TextLabel")
+
+ScreenGui.Name = "PingAndRegionGUI"
+ScreenGui.Parent = player:WaitForChild("PlayerGui")
+
+-- Frame Setup
+Frame.Name = "MainFrame"
+Frame.Parent = ScreenGui
+Frame.Size = UDim2.new(0.2, 0, 0.15, 0)
+Frame.Position = UDim2.new(0.4, 0, 0.4, 0)
+Frame.BackgroundColor3 = Color3.new(0, 0, 0)
+Frame.BackgroundTransparency = 0.3
+Frame.BorderSizePixel = 0
+Frame.Active = true
+Frame.Draggable = true -- Make this frame draggable
+
+-- Ping Label
+PingLabel.Parent = Frame
+PingLabel.Size = UDim2.new(1, 0, 0.5, 0)
+PingLabel.Position = UDim2.new(0, 0, 0, 0)
+PingLabel.Text = "Ping: Calculating..."
+PingLabel.Font = Enum.Font.SourceSans
+PingLabel.TextScaled = true
+PingLabel.TextColor3 = Color3.new(1, 1, 1)
+PingLabel.BackgroundTransparency = 1
+
+-- Region Label
+RegionLabel.Parent = Frame
+RegionLabel.Size = UDim2.new(1, 0, 0.5, 0)
+RegionLabel.Position = UDim2.new(0, 0, 0.5, 0)
+RegionLabel.Text = "Region: Detecting..."
+RegionLabel.Font = Enum.Font.SourceSans
+RegionLabel.TextScaled = true
+RegionLabel.TextColor3 = Color3.new(1, 1, 1)
+RegionLabel.BackgroundTransparency = 1
+
+-- Threshold to determine if the server is in Asia (90 ms)
+local ASIA_PING_THRESHOLD = 80
+
+-- Function to monitor ping and determine region
+local function monitorPing()
+    local networkStats = Stats.Network
+
+    while task.wait(1) do
+        if networkStats then
+            local ping = networkStats.ServerStatsItem["Data Ping"]
+            if ping then
+                local pingValue = math.floor(ping:GetValue()) -- Convert the ping value to a rounded integer in ms
+                PingLabel.Text = "Ping: " .. pingValue .. " ms"
+
+                -- Detect the region based on ping
+                if pingValue <= ASIA_PING_THRESHOLD then
+                    RegionLabel.Text = "Region: Asia"
+                else
+                    RegionLabel.Text = "Region: Outside Your Region"
+                end
+            end
+        end
+    end
+end
+
+-- Start monitoring ping
+monitorPing()
