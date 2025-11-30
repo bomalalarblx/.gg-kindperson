@@ -1,0 +1,115 @@
+-- Parents the script to a ScreenGui
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local StartButton = Instance.new("TextButton")
+local StopButton = Instance.new("TextButton")
+local TimerLabel = Instance.new("TextLabel")
+local BoostFPSButton = Instance.new("TextButton")
+
+-- Set up ScreenGui and Frame
+ScreenGui.Name = "TimerGUI"
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui") -- Assumes the script runs locally
+ScreenGui.ResetOnSpawn = false
+
+Frame.Name = "MainFrame"
+Frame.Parent = ScreenGui
+Frame.BackgroundColor3 = Color3.new(0, 0, 0) -- Black theme
+Frame.Position = UDim2.new(0.25, 0, 0.25, 0)
+Frame.Size = UDim2.new(0.5, 0, 0.5, 0)
+Frame.Active = true
+Frame.Draggable = true -- Makes the frame draggable
+
+-- Timer Label
+TimerLabel.Name = "Timer"
+TimerLabel.Parent = Frame
+TimerLabel.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2) -- Dark gray background for the label
+TimerLabel.Position = UDim2.new(0.25, 0, 0.1, 0)
+TimerLabel.Size = UDim2.new(0.5, 0, 0.2, 0)
+TimerLabel.Font = Enum.Font.SourceSans
+TimerLabel.Text = "Time: 0s"
+TimerLabel.TextColor3 = Color3.new(1, 1, 1) -- White text
+TimerLabel.TextScaled = true
+
+-- Start Button
+StartButton.Name = "StartButton"
+StartButton.Parent = Frame
+StartButton.BackgroundColor3 = Color3.new(0, 0.8, 0.4) -- Green button
+StartButton.Position = UDim2.new(0.1, 0, 0.4, 0)
+StartButton.Size = UDim2.new(0.35, 0, 0.2, 0)
+StartButton.Font = Enum.Font.SourceSans
+StartButton.Text = "Start"
+StartButton.TextColor3 = Color3.new(1, 1, 1) -- White text
+StartButton.TextScaled = true
+
+-- Stop Button
+StopButton.Name = "StopButton"
+StopButton.Parent = Frame
+StopButton.BackgroundColor3 = Color3.new(0.8, 0.2, 0) -- Red button
+StopButton.Position = UDim2.new(0.55, 0, 0.4, 0)
+StopButton.Size = UDim2.new(0.35, 0, 0.2, 0)
+StopButton.Font = Enum.Font.SourceSans
+StopButton.Text = "Stop"
+StopButton.TextColor3 = Color3.new(1, 1, 1) -- White text
+StopButton.TextScaled = true
+
+-- Boost FPS Button
+BoostFPSButton.Name = "BoostFPSButton"
+BoostFPSButton.Parent = Frame
+BoostFPSButton.BackgroundColor3 = Color3.new(0, 0.5, 0.8) -- Blue button
+BoostFPSButton.Position = UDim2.new(0.1, 0, 0.7, 0)
+BoostFPSButton.Size = UDim2.new(0.8, 0, 0.2, 0)
+BoostFPSButton.Font = Enum.Font.SourceSans
+BoostFPSButton.Text = "Boost FPS"
+BoostFPSButton.TextColor3 = Color3.new(1, 1, 1) -- White text
+BoostFPSButton.TextScaled = true
+
+-- Timer Variables
+local isRunning = false
+local elapsedTime = 0
+
+-- Boost FPS Functionality
+local fpsBoostEnabled = false
+local StarterGui = game:GetService("StarterGui")
+
+local function boostFPS()
+	if not fpsBoostEnabled then
+		fpsBoostEnabled = true
+		StarterGui:SetCore("TopbarEnabled", false) -- Hides the top bar
+		for _, v in pairs(game.Lighting:GetChildren()) do
+			if v:IsA("PostEffect") then
+				v.Enabled = false
+			end
+		end
+		print("FPS Boost Enabled")
+	else
+		fpsBoostEnabled = false
+		StarterGui:SetCore("TopbarEnabled", true) -- Restores the top bar
+		for _, v in pairs(game.Lighting:GetChildren()) do
+			if v:IsA("PostEffect") then
+				v.Enabled = true
+			end
+		end
+		print("FPS Boost Disabled")
+	end
+end
+
+-- Start/Stop Timer Functionality
+local function startTimer()
+	if not isRunning then
+		isRunning = true
+		while isRunning do
+			wait(1)
+			elapsedTime += 1
+			TimerLabel.Text = "Time: " .. elapsedTime .. "s"
+		end
+	end
+end
+
+local function stopTimer()
+	isRunning = false
+end
+
+-- Connect Buttons
+StartButton.MouseButton1Click:Connect(startTimer)
+StopButton.MouseButton1Click:Connect(stopTimer)
+BoostFPSButton.MouseButton1Click:Connect(boostFPS)
